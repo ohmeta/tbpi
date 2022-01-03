@@ -1,0 +1,26 @@
+params:
+  samples: samples.tsv
+
+  assemble:
+    do: True
+    coord: illumina
+
+  filter:
+    do: True
+    quality: 30
+
+  mask:
+    do: True
+    vprimer: /path/to/vprimer.fa
+    cprimer: /path/to/cprimer.fa
+
+
+  deduplicate:
+    do: True
+
+
+output:
+  assemble: "results/00.assemble"
+  filter: "results/01.filter"
+  mask: "results/02.mask"
+  deduplicate: "results/03.dedup"
