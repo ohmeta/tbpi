@@ -7,7 +7,8 @@ rule mask_fwd:
                      "fasta/{sample}_fwd_primers-pass.fasta")
     params:
         vprimer = config["params"]["mask"]["vprimer"],
-        outprefix_fwd = os.path.join(config["output"]["mask"], "fasta/{sample}_fwd")
+        outdir = os.path.join(config["output"]["mask"], "fasta"),
+        outprefix_fwd = "{sample}_fwd"
     log:
         os.path.join(config["output"]["mask"], "logs/{sample}.mask_fwd.log")
     shell:
@@ -17,7 +18,8 @@ rule mask_fwd:
         -p {params.vprimer} \
         --mode mask \
         --pf VPRIMER \
-        --outname {outprefix_fwd} \
+        --outdir {params.outdir} \
+        --outname {params.outprefix_fwd} \
         --log {log}
         '''
 
@@ -31,7 +33,8 @@ rule mask_rev:
                      "fasta/{sample}_rev_primers-pass.fasta")
     params:
         cprimer = config["params"]["mask"]["cprimer"],
-        outprefix_rev = os.path.join(config["output"]["mask"], "fasta/{sample}_rev"),
+        outdir = os.path.join(config["output"]["mask"], "fasta"),
+        outprefix_rev = "{sample}_rev"
     log:
         os.path.join(config["output"]["mask"], "logs/{sample}.mask_rev.log")
     shell:
@@ -41,7 +44,8 @@ rule mask_rev:
         -p {params.cprimer} \
         --mode cut --revpr \
         --pf CPRIMER \
-        --outname {outprefix_rev} \
+        --outdir {params.outdir} \
+        --outname {params.outprefix_rev} \
         --log {log}
         '''
 

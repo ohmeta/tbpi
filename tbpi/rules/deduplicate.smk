@@ -4,36 +4,38 @@ rule deduplicate:
                      "fasta/{sample}_rev_primers-pass.fasta")
     output:
         fasta = os.path.join(config["output"]["deduplicate"],
-                             "fasta/{sample}_collapse-unique.fasta")
+                             "fasta/{sample}_collapse-unique.fasta"),
         fasta_oneline = os.path.join(config["output"]["deduplicate"],
                                      "fasta/{sample}_collapse-unique-oneline.fasta")
     params:
-        outprefix = os.path.join(config["output"]["deduplicate"],
-                                 "fasta/{sample}")
+        outdir = os.path.join(config["output"]["deduplicate"], "fasta"),
+        outname = "{sample}"
     shell:
         '''
-        collapseSeq.py \
+        CollapseSeq.py \
         -s {input} \
         -n 20 \
         --uf CPRIMER \
         --cf VPRIMER \
         --act set \
         --inner \
-        --outname {params.outprefix} \
+        --outdir {params.outdir} \
+        --outname {params.outname}
 
-        awk '{{if(NR==1) {{print $0}} else {{if($0 ~ /^>/) {{print "\n"$0}} else {{print $0}}}}}}' \
-        {output.fasta} > {output.fasta_online}
+        seqtk seq \
+        {output.fasta} > {output.fasta_oneline}
         '''
 
 
 if config["params"]["deduplicate"]["do"]:
     rule deduplicate_all:
-        expand([
-            os.path.join(config["output"]["deduplicate"],
-                         "fasta/{sample}_collapse-unique.fasta"),
-            os.path.join(config["output"]["deduplicate"],
-                         "fasta/{sample}_collapse-unique-oneline.fasta")],
-               sample=SAMPLES.index.unique())
+        input:
+            expand([
+                os.path.join(config["output"]["deduplicate"],
+                             "fasta/{sample}_collapse-unique.fasta"),
+                os.path.join(config["output"]["deduplicate"],
+                             "fasta/{sample}_collapse-unique-oneline.fasta")],
+                   sample=SAMPLES.index.unique())
 
 else:
     rule deduplicate_all:

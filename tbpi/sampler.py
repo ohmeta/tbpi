@@ -20,13 +20,13 @@ def parse_samples(
 
             fq1_list = samples_df.loc[[sample_id], "fq1"].dropna().tolist()
             fq2_list = samples_df.loc[[sample_id], "fq2"].dropna().tolist()
-            for fq_file1, fq_file2 in zip(fq1_list, fq2_list):
-                if (not fq_file1.endswith(".gz")) and( not fq_file2.endswith(".gz") ):
-                    print(f"{fq1_file} and {fq2_file} need gzip format")
-                    cancel = True
+            for fq1_file, fq2_file in zip(fq1_list, fq2_list):
+                #if (not fq1_file.endswith(".gz")) and( not fq2_file.endswith(".gz") ):
+                #    print(f"{fq1_file} and {fq2_file} need gzip format")
+                #    cancel = True
                 if check_samples:
-                    if (not os.path.exists(fq_file1)) or (not os.path.exists(fq_file2)):
-                        print(f"{fq_file1} or {fq2_file2} not exists")
+                    if (not os.path.exists(fq1_file)) or (not os.path.exists(fq2_file)):
+                        print(f"{fq1_file} or {fq2_file} not exists")
                         cancel = True
     elif "sra" in samples_df.columns:
         for sample_id in samples_df.index.unique():

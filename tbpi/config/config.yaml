@@ -14,7 +14,6 @@ params:
     vprimer: /path/to/vprimer.fa
     cprimer: /path/to/cprimer.fa
 
-
   deduplicate:
     do: True
 
@@ -24,3 +23,7 @@ output:
   filter: "results/01.filter"
   mask: "results/02.mask"
   deduplicate: "results/03.dedup"
+
+
+envs:
+  bioenv3.8: "envs/bioenv3.8.yaml"

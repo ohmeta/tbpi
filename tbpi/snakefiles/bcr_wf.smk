@@ -8,6 +8,10 @@ shell.executable("bash")
 
 SAMPLES = tbpi.parse_samples(config["params"]["samples"])
 
+# reference
+# https://presto.readthedocs.io/en/stable/
+# The REpertoire Sequencing TOolkit
+
 
 include: "../rules/assemble.smk"
 include: "../rules/filter.smk"

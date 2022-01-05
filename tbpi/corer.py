@@ -81,7 +81,7 @@ def run_snakemake(args, unknown, snakefile, workflow):
 
 def init(args, unknown):
     if args.workdir:
-        project = tbpi.tbconfig(args.workdir)
+        project = tbpi.tbpiconfig(args.workdir)
         print(project.__str__())
         project.create_dirs()
         conf = project.get_config()
@@ -90,8 +90,6 @@ def init(args, unknown):
             conf["envs"][env_name] = os.path.join(
                 os.path.realpath(args.workdir), f"envs/{env_name}.yaml"
             )
-
-        conf = update_config_tools(conf)
 
         if args.samples:
             conf["params"]["samples"] = args.samples
@@ -252,14 +250,14 @@ def main():
     )
     parser_bcr_wf = subparsers.add_parser(
         "bcr_wf",
-        formatter_class=bcr.custom_help_formatter,
+        formatter_class=tbpi.custom_help_formatter,
         parents=[common_parser, run_parser],
         prog="tbpi bcr_wf",
         help="BCR analysis pipeline",
     )
     parser_tcr_wf = subparsers.add_parser(
         "tcr_wf",
-        formatter_class=tcr.custom_help_formatter,
+        formatter_class=tbpi.custom_help_formatter,
         parents=[common_parser, run_parser],
         prog="tbpi tcr_wf",
         help="TCR analysis pipeline",
@@ -284,6 +282,7 @@ if begin from simulate:
 
 """,
     )
+    parser_init.set_defaults(func=init)
 
     parser_bcr_wf.add_argument(
         "task",

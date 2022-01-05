@@ -7,7 +7,8 @@ rule filter:
                      "fasta/{sample}_quality-pass.fasta")
     params:
         quality = config["params"]["filter"]["quality"],
-        outprefix = os.path.join(config["output"]["filter"], "fasta/{sample}")
+        outdir = os.path.join(config["output"]["filter"], "fasta"),
+        outname = "{sample}"
     log:
         os.path.join(config["output"]["filter"], "logs/{sample}.filter.log")
     shell:
@@ -16,7 +17,8 @@ rule filter:
         -s {input} \
         --fasta \
         -q {params.quality} \
-        --outname {params.outprefix} \
+        --outdir {params.outdir} \
+        --outname {params.outname} \
         --log {log}
         '''
 
