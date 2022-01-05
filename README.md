@@ -1,6 +1,6 @@
 # T/B cell repertoires profiling 
 
-<div align=center><img width="500" height="280" src="docs/dag.svg"/></div>
+<div align=center><img src="docs/dag.svg"/></div>
 
 
 ```bash
