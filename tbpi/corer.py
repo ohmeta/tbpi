@@ -118,7 +118,16 @@ def tcr_wf(args, unknown):
 def main():
     banner = """
 
-            Omics for All, Open Source for All
+        ████████╗██████╗░██████╗░██╗
+        ╚══██╔══╝██╔══██╗██╔══██╗██║
+        ░░░██║░░░██████╦╝██████╔╝██║
+        ░░░██║░░░██╔══██╗██╔═══╝░██║
+        ░░░██║░░░██████╦╝██║░░░░░██║
+        ░░░╚═╝░░░╚═════╝░╚═╝░░░░░╚═╝
+
+     Omics for All, Open Source for All
+
+     TCR/BCR sequence analysis pipeline
 
 """
 
